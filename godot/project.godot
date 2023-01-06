@@ -8,11 +8,26 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "DialogueResource",
+"language": "GDScript",
+"path": "res://addons/dialogue_manager/dialogue_resource.gd"
+} ]
+_global_script_class_icons={
+"DialogueResource": ""
+}
+
 [application]
 
 config/name="Ludum Dare 52"
 run/main_scene="res://world/World.tscn"
 config/icon="res://misc/icon.png"
+
+[autoload]
+
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DialogueConstants="*res://autoloads/DialogueConstants.gd"
 
 [display]
 
@@ -23,6 +38,10 @@ window/size/test_height=1440
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg" )
 
 [gui]
 
