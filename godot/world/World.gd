@@ -1,16 +1,35 @@
 extends Node
 
+onready var tween : Tween = get_node("Tween")
+var current_scene : Node = null
+var next_scene : Node = null
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+onready var main_menu_scene := preload("res://menu/MainMenu.tscn")
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	tween.connect("tween_all_completed", self, "_on_tween_finished")
+	switch_scene(main_menu_scene)
+	
+func switch_scene(new_scene : PackedScene) -> void:
+	next_scene = new_scene.instance()
+	next_scene["modulate"] = Color(1, 1, 1, 0)
+	self.add_child(next_scene)
+	
+	tween.remove_all()
+	
+	if current_scene:
+		tween.interpolate_property(current_scene, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 0.8, Tween.TRANS_CUBIC)
+		tween.start()
+	else:
+		_on_tween_finished()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _on_tween_finished():
+	if next_scene != null:
+		tween.remove_all()
+		if current_scene:
+			current_scene.queue_free()
+		current_scene = next_scene
+		next_scene = null
+		
+		tween.interpolate_property(current_scene, "modulate", Color(1, 1, 1, 0), Color(1, 1, 1, 1), 0.8, Tween.TRANS_CUBIC)
+		tween.start()
