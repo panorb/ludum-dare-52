@@ -14,6 +14,10 @@ config/name="Ludum Dare 52"
 run/main_scene="res://world/World.tscn"
 config/icon="res://misc/icon.png"
 
+[display]
+
+window/dpi/allow_hidpi=true
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
