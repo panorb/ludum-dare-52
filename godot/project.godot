@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Label",
+"class": "PaletteLabel",
+"language": "GDScript",
+"path": "res://addons/palette/nodes/PaletteLabel.gd"
+}, {
+"base": "ColorRect",
+"class": "PaletteRect",
+"language": "GDScript",
+"path": "res://addons/palette/nodes/PaletteRect.gd"
+} ]
+_global_script_class_icons={
+"PaletteLabel": "",
+"PaletteRect": ""
+}
+
 [application]
 
 config/name="Ludum Dare 52"
@@ -17,6 +33,7 @@ config/icon="res://misc/icon.png"
 [autoload]
 
 DialogueConstants="*res://autoloads/DialogueConstants.gd"
+Palette="*res://addons/palette/Palette.gd"
 
 [display]
 
@@ -27,6 +44,10 @@ window/size/test_height=720
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/palette/plugin.cfg" )
 
 [gui]
 
