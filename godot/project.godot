@@ -33,8 +33,8 @@ DialogueConstants="*res://autoloads/DialogueConstants.gd"
 
 window/size/width=320
 window/size/height=180
-window/size/test_width=2560
-window/size/test_height=1440
+window/size/test_width=1280
+window/size/test_height=720
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
