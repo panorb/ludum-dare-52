@@ -1,6 +1,5 @@
 extends Control
 
-
 onready var quit_button = get_node("%QuitButton")
 
 func _ready():
