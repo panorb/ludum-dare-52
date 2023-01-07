@@ -14,10 +14,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Control" type="Control" parent="CenterContainer"]
-margin_left = 160.0
-margin_top = 90.0
-margin_right = 160.0
-margin_bottom = 90.0
+margin_left = 1920.0
+margin_top = 1080.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 
 [node name="BeatIndicator" type="TextureRect" parent="CenterContainer/Control"]
 unique_name_in_owner = true
@@ -45,6 +45,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 margin_right = 40.0
 margin_bottom = 14.0
+rect_scale = Vector2( 4, 4 )
 text = "dada"
 
 [connection signal="enter_beat_close_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_close_zone"]

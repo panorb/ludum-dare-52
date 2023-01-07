@@ -2,7 +2,7 @@ extends Node
 
 onready var music_player : AudioStreamPlayer = get_node("MusicPlayer")
 
-const BPM := 120
+const BPM := 128
 const SECONDS_PER_BEAT : float = 60.0 / BPM
 const TIME_UNTIL_FIRST_BEAT := 0
 # const TIME_UNTIL_FIRST_BEAT := 0.034

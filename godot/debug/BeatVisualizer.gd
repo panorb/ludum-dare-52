@@ -21,7 +21,7 @@ func _on_Conductor_enter_beat_close_zone():
 	# beat_indicator.rect_scale = Vector2(0.42, 0.42)
 
 func _on_Conductor_enter_beat_hit_zone():
-	beat_indicator.rect_scale = Vector2(0.5, 0.5)
+	beat_indicator.rect_scale = Vector2(1, 1)
 
 func _on_Conductor_exit_beat_hit_zone():
 	beat_indicator.rect_scale = Vector2(0.42, 0.42)
