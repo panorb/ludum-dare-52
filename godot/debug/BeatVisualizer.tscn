@@ -52,3 +52,4 @@ text = "dada"
 [connection signal="enter_beat_hit_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_hit_zone"]
 [connection signal="exit_beat_close_zone" from="Conductor" to="." method="_on_Conductor_exit_beat_close_zone"]
 [connection signal="exit_beat_hit_zone" from="Conductor" to="." method="_on_Conductor_exit_beat_hit_zone"]
+[connection signal="hit_result" from="Conductor" to="." method="_on_Conductor_hit_result"]
