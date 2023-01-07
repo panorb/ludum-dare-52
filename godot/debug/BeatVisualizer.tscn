@@ -19,7 +19,8 @@ margin_top = 90.0
 margin_right = 160.0
 margin_bottom = 90.0
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/Control"]
+[node name="BeatIndicator" type="TextureRect" parent="CenterContainer/Control"]
+unique_name_in_owner = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -36,5 +37,17 @@ texture = ExtResource( 1 )
 stretch_mode = 1
 
 [node name="Conductor" parent="." instance=ExtResource( 2 )]
+unique_name_in_owner = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="BeatHitZoneLabel" type="Label" parent="."]
+unique_name_in_owner = true
+margin_right = 40.0
+margin_bottom = 14.0
+text = "dada"
+
+[connection signal="enter_beat_close_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_close_zone"]
+[connection signal="enter_beat_hit_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_hit_zone"]
+[connection signal="exit_beat_close_zone" from="Conductor" to="." method="_on_Conductor_exit_beat_close_zone"]
+[connection signal="exit_beat_hit_zone" from="Conductor" to="." method="_on_Conductor_exit_beat_hit_zone"]

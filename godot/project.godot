@@ -32,8 +32,8 @@ config/icon="res://misc/icon.png"
 
 [autoload]
 
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 DialogueConstants="*res://autoloads/DialogueConstants.gd"
-Palette="*res://addons/palette/Palette.gd"
 
 [display]
 
@@ -47,7 +47,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/palette/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogue_manager/plugin.cfg" )
 
 [gui]
 
