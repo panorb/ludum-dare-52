@@ -35,6 +35,7 @@ func _process(delta):
 	#if ground_anchor.position.x > 3840:
 	#	ground_anchor.position.x = 0
 	moving_anchor.position.x += GROUND_SPEED * delta
+	ground_container.scroll_offset.x += GROUND_SPEED * delta
 	# print(ground_container.position.x)
 
 
