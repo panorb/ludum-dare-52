@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/stage/sun.png" type="Texture" id=1]
-[ext_resource path="res://game/stage/ground.png" type="Texture" id=2]
+[ext_resource path="res://game/stage/assets/ground.png" type="Texture" id=2]
 [ext_resource path="res://game/stage/Stage.gd" type="Script" id=3]
 [ext_resource path="res://game/stage/farmer.png" type="Texture" id=4]
 [ext_resource path="res://game/conductor/Conductor.tscn" type="PackedScene" id=5]
@@ -33,12 +33,13 @@ animations = [ {
 script = ExtResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.956863, 0.956863, 0.956863, 1 )
+color = Color( 0.937255, 0.490196, 0.341176, 1 )
 polygon = PoolVector2Array( -299, -152, 4048, -138, 3988, 2464, -221, 2325 )
 
 [node name="Sun" type="AnimatedSprite" parent="."]
-position = Vector2( 3572, 252 )
+position = Vector2( 3457, 348 )
 frames = SubResource( 4 )
+frame = 2
 playing = true
 
 [node name="MovingAnchor" type="Node2D" parent="."]
@@ -51,19 +52,20 @@ unique_name_in_owner = true
 [node name="StartPosition" type="Position2D" parent="MovingAnchor/Plants"]
 position = Vector2( 3380, -99 )
 
-[node name="GroundContainer" type="Node2D" parent="MovingAnchor"]
+[node name="GroundContainer" type="ParallaxBackground" parent="."]
 unique_name_in_owner = true
+layer = 0
 
-[node name="Ground1" type="Sprite" parent="MovingAnchor/GroundContainer"]
-texture = ExtResource( 2 )
-offset = Vector2( 1920, 0 )
+[node name="ParallaxLayer" type="ParallaxLayer" parent="GroundContainer"]
+motion_mirroring = Vector2( 3840, 0 )
 
-[node name="Ground2" type="Sprite" parent="MovingAnchor/GroundContainer"]
-position = Vector2( -3840, 0 )
+[node name="Ground" type="Sprite" parent="GroundContainer/ParallaxLayer"]
+position = Vector2( 0, 1904 )
 texture = ExtResource( 2 )
-offset = Vector2( 1920, 0 )
+centered = false
 
 [node name="Farmer" type="Sprite" parent="."]
+modulate = Color( 0.337255, 0.423529, 0.52549, 1 )
 position = Vector2( 3433, 1824 )
 texture = ExtResource( 4 )
 
