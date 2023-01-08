@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/beat-song.ogg-9955441f0aab54f92e51859979dba463.oggstr"
+
+[deps]
+
+source_file="res://game/conductor/beat-song.ogg"
+dest_files=[ "res://.import/beat-song.ogg-9955441f0aab54f92e51859979dba463.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
