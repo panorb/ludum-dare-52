@@ -50,7 +50,7 @@ position = Vector2( 0, 2160 )
 unique_name_in_owner = true
 
 [node name="StartPosition" type="Position2D" parent="MovingAnchor/Plants"]
-position = Vector2( 3380, -99 )
+position = Vector2( 3380, -200 )
 
 [node name="GroundContainer" type="ParallaxBackground" parent="."]
 unique_name_in_owner = true

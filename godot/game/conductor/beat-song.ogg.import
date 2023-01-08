@@ -11,5 +11,5 @@ dest_files=[ "res://.import/beat-song.ogg-9955441f0aab54f92e51859979dba463.oggst
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

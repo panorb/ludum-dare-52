@@ -183,6 +183,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="StartButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 margin_top = 1006.0
 margin_right = 3820.0
 margin_bottom = 1026.0

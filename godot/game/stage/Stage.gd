@@ -17,19 +17,19 @@ func _ready():
 func spawn_radishes():
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	
-	var radish_amount := int(90.0 / (conductor.SECONDS_PER_BEAT))
-	
-	for i in range(radish_amount):
-		var radish_instance := radish_scene.instance()
-		radish_instance.name = "Beat " + str(i)
-		radish_instance.position.y = radish_start_pos.position.y + rand_range(-5.0, 15.0)
-		radish_instance.position.x = radish_start_pos.position.x - (i * (conductor.SECONDS_PER_BEAT) * GROUND_SPEED)
-		plant_container.add_child(radish_instance)
+	for i in range(len(conductor.hit_pattern)):
+		if conductor.hit_pattern[i] == "1":
+			var radish_instance := radish_scene.instance()
+			radish_instance.name = "Beat " + str(i)
+			radish_instance.position.y = radish_start_pos.position.y + rand_range(-5.0, 15.0)
+			radish_instance.position.x = radish_start_pos.position.x - (i * (conductor.seconds_per_beat) * GROUND_SPEED)
+			plant_container.add_child(radish_instance)
 
 func _on_hit_result(hit_result):
 	if hit_result == conductor.BEAT_HIT_ZONE.HIT:
-		var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
-		beat_plant.play_hit_success_animation()
+		if plant_container.has_node("Beat " + str(conductor.closest_beat_position)):
+			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
+			beat_plant.play_hit_success_animation()
 
 func _process(delta):
 	#if ground_anchor.position.x > 3840:

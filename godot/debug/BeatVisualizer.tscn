@@ -49,6 +49,13 @@ margin_bottom = 14.0
 rect_scale = Vector2( 4, 4 )
 text = "dada"
 
+[node name="BeatNumLabel" type="Label" parent="."]
+unique_name_in_owner = true
+margin_left = 300.0
+margin_right = 340.0
+margin_bottom = 14.0
+rect_scale = Vector2( 6, 6 )
+
 [connection signal="enter_beat_close_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_close_zone"]
 [connection signal="enter_beat_hit_zone" from="Conductor" to="." method="_on_Conductor_enter_beat_hit_zone"]
 [connection signal="exit_beat_close_zone" from="Conductor" to="." method="_on_Conductor_exit_beat_close_zone"]

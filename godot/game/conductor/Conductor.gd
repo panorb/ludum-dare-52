@@ -5,12 +5,12 @@ onready var music_player : AudioStreamPlayer = get_node("MusicPlayer")
 export(int) var bpm := 128
 var seconds_per_beat : float = 60.0 / bpm
 
-export(float, 0, 5) var time_until_first_beat := 0.0
+export(float, 0, 5) var time_until_first_beat := 0
 
 export(float, 0, 1) var seconds_tolerance_hit : float = 0.14
 export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.08
 
-var hit_pattern : String = "0100010001000100010001000100010001010010001010010100101001000101001010010001000100010001000100010001000101001000101001010010100100010100101001010010001010010100101001000101001010000"
+var hit_pattern : String = "0010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
 
 enum BEAT_HIT_ZONE {
 	MISS
@@ -55,7 +55,10 @@ func _physics_process(delta):
 	var beat_position = int(track_position_seconds / seconds_per_beat)
 	
 	closest_beat_position = round(track_position_seconds / seconds_per_beat)
-	var closest_beat_seconds = time_until_first_beat + (closest_beat_position * seconds_per_beat)
+	if closest_beat_position > len(hit_pattern) or hit_pattern[closest_beat_position] == "0":
+		return
+	
+	var closest_beat_seconds = (closest_beat_position * seconds_per_beat)
 	
 	var seconds_to_closest_beat = closest_beat_seconds - track_position_seconds
 	

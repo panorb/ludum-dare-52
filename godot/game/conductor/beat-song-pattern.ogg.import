@@ -11,5 +11,5 @@ dest_files=[ "res://.import/beat-song-pattern.ogg-d5c6bcbfdb6e4c378bb59ad548e9e3
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
