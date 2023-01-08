@@ -1,0 +1,37 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://menu/button_prompts/bar_1.png" type="Texture" id=1]
+[ext_resource path="res://menu/button_prompts/bar_2.png" type="Texture" id=2]
+[ext_resource path="res://menu/button_prompts/bar_3.png" type="Texture" id=3]
+[ext_resource path="res://menu/button_prompts/bar_0.png" type="Texture" id=4]
+[ext_resource path="res://menu/button_prompts/button_a_pressed.png" type="Texture" id=5]
+[ext_resource path="res://menu/button_prompts/button_a_relaxed.png" type="Texture" id=6]
+[ext_resource path="res://menu/button_prompts/ButtonPrompt.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[node name="ButtonPrompt" type="Node2D"]
+script = ExtResource( 7 )
+button_pressed = null
+progress_num = 3
+
+[node name="ProgressBar" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 1 )
+
+[node name="Button" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )

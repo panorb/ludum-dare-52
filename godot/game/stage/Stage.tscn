@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://game/stage/sun.png" type="Texture" id=1]
+[ext_resource path="res://game/stage/ground.png" type="Texture" id=2]
+[ext_resource path="res://game/stage/Stage.gd" type="Script" id=3]
+[ext_resource path="res://game/stage/farmer.png" type="Texture" id=4]
+[ext_resource path="res://game/conductor/Conductor.tscn" type="PackedScene" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 534, 503 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 534, 0, 534, 503 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1068, 0, 534, 503 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.956863, 0.956863, 0.956863, 1 )
+polygon = PoolVector2Array( -299, -152, 4048, -138, 3988, 2464, -221, 2325 )
+
+[node name="Sun" type="AnimatedSprite" parent="."]
+position = Vector2( 3572, 252 )
+frames = SubResource( 4 )
+playing = true
+
+[node name="MovingAnchor" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( 0, 2160 )
+
+[node name="Plants" type="Node2D" parent="MovingAnchor"]
+unique_name_in_owner = true
+
+[node name="StartPosition" type="Position2D" parent="MovingAnchor/Plants"]
+position = Vector2( 3380, -99 )
+
+[node name="GroundContainer" type="Node2D" parent="MovingAnchor"]
+unique_name_in_owner = true
+
+[node name="Ground1" type="Sprite" parent="MovingAnchor/GroundContainer"]
+texture = ExtResource( 2 )
+offset = Vector2( 1920, 0 )
+
+[node name="Ground2" type="Sprite" parent="MovingAnchor/GroundContainer"]
+position = Vector2( -3840, 0 )
+texture = ExtResource( 2 )
+offset = Vector2( 1920, 0 )
+
+[node name="Farmer" type="Sprite" parent="."]
+position = Vector2( 3433, 1824 )
+texture = ExtResource( 4 )
+
+[node name="Conductor" parent="." instance=ExtResource( 5 )]

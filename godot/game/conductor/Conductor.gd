@@ -35,6 +35,7 @@ func _ready():
 
 var last_beat_pos := -1
 var current_beat_zone : int = BEAT_HIT_ZONE.MISS
+var closest_beat_position := 0
 
 signal enter_beat_hit_zone
 signal exit_beat_hit_zone
@@ -51,7 +52,7 @@ func _physics_process(delta):
 	
 	var beat_position = int(track_position_seconds / SECONDS_PER_BEAT)
 	
-	var closest_beat_position = round(track_position_seconds / SECONDS_PER_BEAT)
+	closest_beat_position = round(track_position_seconds / SECONDS_PER_BEAT)
 	var closest_beat_seconds = TIME_UNTIL_FIRST_BEAT + (closest_beat_position * SECONDS_PER_BEAT)
 	
 	var seconds_to_closest_beat = closest_beat_seconds - track_position_seconds
@@ -77,4 +78,5 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("beat_hit"):
+		print(current_beat_zone)
 		emit_signal("hit_result", current_beat_zone)
