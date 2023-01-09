@@ -49,12 +49,12 @@ tracks/0/keys = {
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 13 ) ],
-"loop": true,
+"loop": false,
 "name": "miss",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
+"loop": false,
 "name": "pull",
 "speed": 5.0
 }, {
@@ -109,24 +109,12 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath(".:playing")
+tracks/4/path = NodePath(".:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath(".:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -321,7 +309,6 @@ centered = false
 position = Vector2( 3448, 1944 )
 frames = SubResource( 5 )
 animation = "running"
-playing = true
 offset = Vector2( 0, -512 )
 
 [node name="FarmerAnimationPlayer" type="AnimationPlayer" parent="Farmer"]

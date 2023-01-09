@@ -93,6 +93,7 @@ func _on_tutorial_pattern_passed():
 #			plant.play_spawn_animation()
 
 func _on_main_song_passed():
+	yield(get_tree().create_timer(1.7), "timeout")
 	emit_signal("game_overed", song_hit_successes, total_hit_beats)
 
 var song_hit_successes = 0
