@@ -29,12 +29,17 @@ func _on_Stage_game_overed(hit_successes, total_hit_beats):
 	else:
 		next_scene.set_game_over_text("A nice walk, but a little unproductive.")
 
+func _on_GameOver_restart_me():
+	switch_scene(stage_scene)
+
 func switch_scene(new_scene : PackedScene) -> void:
 	next_scene = new_scene.instance()
 	if next_scene.has_signal("start_button_pressed"):
 		next_scene.connect("start_button_pressed", self, "_on_MainMenu_start_button_pressed")
 	if next_scene.has_signal("game_overed"):
 		next_scene.connect("game_overed", self, "_on_Stage_game_overed")
+	if next_scene.has_signal("restart_me"):
+		next_scene.connect("restart_me", self, "_on_GameOver_restart_me")
 	
 	next_scene["modulate"] = Color(1, 1, 1, 0)
 	self.add_child(next_scene)
