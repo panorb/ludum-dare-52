@@ -16,8 +16,14 @@ onready var tween : Tween = get_node("Tween")
 
 signal game_overed
 
+var total_hit_beats = 0
+
 func _ready():
 	current_speed = GROUND_SPEED
+	
+	for beat in conductor.song_pattern:
+		if beat == "1":
+			total_hit_beats += 1
 	
 	conductor.connect("hit_result", self, "_on_hit_result")
 	conductor.connect("tutorial_pattern_passed", self, "_on_tutorial_pattern_passed")
@@ -88,6 +94,7 @@ func _on_tutorial_pattern_passed():
 func _on_main_song_passed():
 	emit_signal("game_overed")
 
+var song_hit_successes = 0
 var tutorial_hit_sucesses = 0
 onready var tutorial_progress_label = get_node("%TutorialProgressLabel")
 
@@ -97,10 +104,12 @@ func _on_hit_result(hit_result):
 			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
 			beat_plant.play_hit_success_animation()
 			
-			tutorial_hit_sucesses += 1
 			
 			if conductor.tutorial_mode:
+				tutorial_hit_sucesses += 1
 				tutorial_progress_label.text = str(tutorial_hit_sucesses) + "/3"
+			else:
+				song_hit_successes += 1
 			
 			farmer_animation_player.play("pull")
 			
