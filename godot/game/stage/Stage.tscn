@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://game/stage/assets/sun0.png" type="Texture" id=1]
 [ext_resource path="res://game/stage/assets/ground.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://game/stage/assets/sun1.png" type="Texture" id=10]
 [ext_resource path="res://game/stage/assets/farmer_pull0.png" type="Texture" id=11]
 [ext_resource path="res://game/stage/assets/farmer_pull1.png" type="Texture" id=12]
+[ext_resource path="res://game/stage/assets/farmer_miss.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -46,6 +47,11 @@ tracks/0/keys = {
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "miss",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "pull",
@@ -126,9 +132,50 @@ tracks/5/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Animation" id=13]
+resource_name = "miss"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/path = NodePath("FarmerAnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "running", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "miss" ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 3448, -0.25, 0, 0.05, 0, 3398.25, -0.05, 0, 0.05, 0, 3501.83, -0.05, 0, 0.05, 0, 3448, -0.05, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 )
+}
+
 [sub_resource type="Animation" id=12]
 resource_name = "pull"
-length = 0.4
+length = 0.35
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:animation")
 tracks/0/interp = 1
@@ -148,7 +195,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
@@ -160,7 +207,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.4 ),
+"times": PoolRealArray( 0.35 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "running", -1, 1.0, false ],
@@ -234,7 +281,7 @@ position = Vector2( 0, 2160 )
 unique_name_in_owner = true
 
 [node name="StartPosition" type="Position2D" parent="MovingAnchor/Plants"]
-position = Vector2( 3396, -200 )
+position = Vector2( 3327, -200 )
 
 [node name="BackgroundParallax" type="ParallaxBackground" parent="."]
 unique_name_in_owner = true
@@ -269,6 +316,7 @@ offset = Vector2( 0, -512 )
 unique_name_in_owner = true
 autoplay = "running"
 anims/RESET = SubResource( 6 )
+anims/miss = SubResource( 13 )
 anims/pull = SubResource( 12 )
 anims/running = SubResource( 7 )
 
