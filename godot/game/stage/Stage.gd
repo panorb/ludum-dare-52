@@ -1,6 +1,6 @@
 extends Node2D
 
-const GROUND_SPEED := 200
+const GROUND_SPEED := 600
 
 # onready var ground_anchor = get_node("GroundAnchor")
 onready var plant_container = get_node("%Plants")
@@ -71,7 +71,7 @@ func _process(delta):
 	#	ground_anchor.position.x = 0
 	moving_anchor.position.x += GROUND_SPEED * delta
 	ground_container.scroll_offset.x += GROUND_SPEED * delta
-	background_parallax.scroll_offset.x += GROUND_SPEED * delta / 2
+	background_parallax.scroll_offset.x += GROUND_SPEED * delta / 3
 	# print(ground_container.position.x)
 
 

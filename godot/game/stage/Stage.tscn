@@ -65,10 +65,30 @@ tracks/1/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0 )
 }
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 3448, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath(".:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1944, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "running"
-length = 0.6
+length = 0.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:animation")
@@ -83,14 +103,14 @@ tracks/0/keys = {
 "values": [ "running" ]
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/path = NodePath(".:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( -5, -0.25, 0, 0.3, 0, 5, -0.2, 0, 0.2, 0, -5, -0.3, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.3, 0.6 )
+"points": PoolRealArray( 1944, -0.25, 0, 0.1, 0, 1920, -0.1, 0, 0.1, 0, 1944, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.4 )
 }
 
 [sub_resource type="DynamicFont" id=9]
@@ -115,7 +135,6 @@ __meta__ = {
 [node name="Sun" type="AnimatedSprite" parent="."]
 position = Vector2( 3457, 348 )
 frames = SubResource( 4 )
-frame = 2
 playing = true
 
 [node name="MovingAnchor" type="Node2D" parent="."]
@@ -185,9 +204,9 @@ unique_name_in_owner = true
 margin_top = 1050.0
 margin_right = 3840.0
 margin_bottom = 1257.0
-custom_colors/font_color = Color( 0.45098, 0.937255, 0.968627, 1 )
+custom_colors/font_color = Color( 0.2, 0.235294, 0.341176, 1 )
 custom_fonts/font = SubResource( 8 )
 text = "0/3"
 align = 1
 script = ExtResource( 8 )
-colour = 15
+colour = 1
