@@ -24,7 +24,7 @@ func spawn_radishes() -> void:
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	
 	for i in range(len(conductor.hit_pattern)):
-		var radish_instance = radish_scene.instance()
+		var radish_instance = null
 		
 		if plant_container.has_node("Beat " + str(i)):
 			radish_instance = plant_container.get_node("Beat " + str(i))
@@ -34,12 +34,15 @@ func spawn_radishes() -> void:
 				radish_instance.queue_free()
 		
 		if conductor.hit_pattern[i] == "1":
+			if radish_instance == null:
+				radish_instance = radish_scene.instance()
+			
 			radish_instance.position.y = radish_start_pos.position.y + rand_range(-5.0, 15.0)
 			
 			if conductor.tutorial_mode:
-				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * (len(conductor.tutorial_pattern))))  * (conductor.seconds_per_beat) * GROUND_SPEED)
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * conductor.seconds_per_beat * GROUND_SPEED)
 			else:
-				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * (len(conductor.tutorial_pattern) - 1)))  * (conductor.seconds_per_beat) * GROUND_SPEED)
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)) - 1)  * conductor.seconds_per_beat * GROUND_SPEED)
 			
 			if radish_instance.get_parent() == null:
 				radish_instance.name = "Beat " + str(i)
