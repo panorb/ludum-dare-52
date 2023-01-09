@@ -9,6 +9,7 @@ onready var conductor = get_node("Conductor")
 onready var moving_anchor = get_node("%MovingAnchor")
 onready var ground_container = get_node("%GroundContainer")
 onready var background_parallax: ParallaxBackground = $"%BackgroundParallax"
+onready var farmer_animation_player = get_node("%FarmerAnimationPlayer")
 
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
 onready var tween : Tween = get_node("Tween")
@@ -92,6 +93,8 @@ func _on_hit_result(hit_result):
 			
 			if conductor.tutorial_mode:
 				tutorial_progress_label.text = str(tutorial_hit_sucesses) + "/3"
+			
+			
 			
 			# Hit Pause
 #			current_speed = 0
