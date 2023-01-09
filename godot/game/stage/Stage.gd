@@ -14,11 +14,14 @@ onready var farmer_animation_player = get_node("%FarmerAnimationPlayer")
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
 onready var tween : Tween = get_node("Tween")
 
+signal game_overed
+
 func _ready():
 	current_speed = GROUND_SPEED
 	
 	conductor.connect("hit_result", self, "_on_hit_result")
 	conductor.connect("tutorial_pattern_passed", self, "_on_tutorial_pattern_passed")
+	conductor.connect("main_song_passed", self, "_on_main_song_passed")
 	spawn_radishes()
 
 func spawn_radishes() -> void:
@@ -40,16 +43,18 @@ func spawn_radishes() -> void:
 			
 			radish_instance.position.y = radish_start_pos.position.y + rand_range(-5.0, 15.0)
 			
-			if conductor.tutorial_mode:
-				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * conductor.seconds_per_beat * GROUND_SPEED)
-			else:
-				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)) - 1)  * conductor.seconds_per_beat * GROUND_SPEED)
-			
 			if radish_instance.get_parent() == null:
 				radish_instance.name = "Beat " + str(i)
 				plant_container.add_child(radish_instance)
 			
 			radish_instance.play_spawn_animation()
+			yield(get_tree(), "idle_frame")
+			
+			if conductor.tutorial_mode:
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * conductor.seconds_per_beat * GROUND_SPEED)
+			else:
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)) - 1)  * conductor.seconds_per_beat * GROUND_SPEED)
+			
 			yield(get_tree().create_timer(0.05), "timeout")
 
 var tutorial_loops_passed = 0
@@ -79,6 +84,9 @@ func _on_tutorial_pattern_passed():
 #
 #			plant.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * (conductor.seconds_per_beat) * GROUND_SPEED)
 #			plant.play_spawn_animation()
+
+func _on_main_song_passed():
+	emit_signal("game_overed")
 
 var tutorial_hit_sucesses = 0
 onready var tutorial_progress_label = get_node("%TutorialProgressLabel")

@@ -61,17 +61,27 @@ signal exit_beat_close_zone
 
 signal hit_result(hit_zone)
 signal tutorial_pattern_passed
+signal main_song_passed
 
 var passed_seconds_since_start : float = 0
 var passed_seconds : float = 0
 
+var passed_signal_sent = false
+
 func _physics_process(delta):
 	passed_seconds_since_start += delta
 	passed_seconds += delta
+	
+	if passed_signal_sent:
+		return
+	
 	if tutorial_mode and passed_seconds >= (len(hit_pattern) - 1) * seconds_per_beat:
 		passed_seconds -= len(hit_pattern) * seconds_per_beat
 		beats_input_received = []
 		emit_signal("tutorial_pattern_passed")
+	if not tutorial_mode and music_player.get_playback_position() >= (len(hit_pattern) - 1) * seconds_per_beat:
+		passed_signal_sent = true
+		emit_signal("main_song_passed")
 	
 	var track_position_seconds := passed_seconds
 	if not tutorial_mode:
