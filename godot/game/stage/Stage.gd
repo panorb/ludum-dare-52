@@ -1,6 +1,7 @@
 extends Node2D
 
 const GROUND_SPEED := 600
+var current_speed : int
 
 # onready var ground_anchor = get_node("GroundAnchor")
 onready var plant_container = get_node("%Plants")
@@ -12,6 +13,8 @@ onready var background_parallax: ParallaxBackground = $"%BackgroundParallax"
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
 
 func _ready():
+	current_speed = GROUND_SPEED
+	
 	conductor.connect("hit_result", self, "_on_hit_result")
 	conductor.connect("tutorial_pattern_passed", self, "_on_tutorial_pattern_passed")
 	spawn_radishes()
@@ -61,6 +64,11 @@ func _on_hit_result(hit_result):
 			if conductor.tutorial_mode:
 				tutorial_progress_label.text = str(tutorial_hit_sucesses) + "/3"
 			
+			# Hit Pause
+#			current_speed = 0
+#			yield(get_tree().create_timer(0.15), "timeout")
+#			current_speed = GROUND_SPEED
+			
 	if hit_result == conductor.BEAT_HIT_ZONE.TOO_EARLY or hit_result == conductor.BEAT_HIT_ZONE.TOO_LATE:
 		if plant_container.has_node("Beat " + str(conductor.closest_beat_position)):
 			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
@@ -69,9 +77,9 @@ func _on_hit_result(hit_result):
 func _process(delta):
 	#if ground_anchor.position.x > 3840:
 	#	ground_anchor.position.x = 0
-	moving_anchor.position.x += GROUND_SPEED * delta
-	ground_container.scroll_offset.x += GROUND_SPEED * delta
-	background_parallax.scroll_offset.x += GROUND_SPEED * delta / 3
+	moving_anchor.position.x += current_speed * delta
+	ground_container.scroll_offset.x += current_speed * delta
+	background_parallax.scroll_offset.x += current_speed * delta / 3
 	# print(ground_container.position.x)
 
 
