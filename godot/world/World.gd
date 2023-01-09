@@ -42,6 +42,7 @@ func _on_tween_finished():
 		tween.remove_all()
 		if current_scene:
 			current_scene.queue_free()
+		yield(get_tree(), "idle_frame")
 		current_scene = next_scene
 		next_scene = null
 		
