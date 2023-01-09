@@ -24,38 +24,57 @@ func spawn_radishes() -> void:
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	
 	for i in range(len(conductor.hit_pattern)):
+		var radish_instance = radish_scene.instance()
+		
+		if plant_container.has_node("Beat " + str(i)):
+			radish_instance = plant_container.get_node("Beat " + str(i))
+			radish_instance.play_despawn_animation()
+			yield(get_tree().create_timer(0.2), "timeout")
+			if conductor.hit_pattern[i] == "0":
+				radish_instance.queue_free()
+		
 		if conductor.hit_pattern[i] == "1":
-			var radish_instance := radish_scene.instance()
-			radish_instance.name = "Beat " + str(i)
 			radish_instance.position.y = radish_start_pos.position.y + rand_range(-5.0, 15.0)
-			radish_instance.position.x = radish_start_pos.position.x - (i  * (conductor.seconds_per_beat) * GROUND_SPEED)
-			plant_container.add_child(radish_instance)
+			
+			if conductor.tutorial_mode:
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * (len(conductor.tutorial_pattern))))  * (conductor.seconds_per_beat) * GROUND_SPEED)
+			else:
+				radish_instance.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * (len(conductor.tutorial_pattern) - 1)))  * (conductor.seconds_per_beat) * GROUND_SPEED)
+			
+			if radish_instance.get_parent() == null:
+				radish_instance.name = "Beat " + str(i)
+				plant_container.add_child(radish_instance)
+			
+			radish_instance.play_spawn_animation()
+			yield(get_tree().create_timer(0.05), "timeout")
 
 var tutorial_loops_passed = 0
 
 func _on_tutorial_pattern_passed():
+	tutorial_loops_passed += 1
 	if tutorial_hit_sucesses >= 3:
 		tween.interpolate_property(get_node("%TutorialUI"), "modulate", Color(1.0, 1.0, 1.0, 1.0), Color(1.0, 1.0, 1.0, 0.0), 0.8, Tween.TRANS_CIRC)
 		tween.start()
-		conductor.tutorial_mode = false
+		conductor.start_main_song()
+		spawn_radishes()
 		return
 	
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	tutorial_hit_sucesses = 0
-	tutorial_loops_passed += 1
 	
 	tutorial_progress_label.text = str(tutorial_hit_sucesses) + "/3"
 	
-	for i in range(len(conductor.hit_pattern)):
-		if conductor.hit_pattern[i] == "1":
-			var plant = plant_container.get_node("Beat " + str(i))
-			
-			if not plant.already_invisible:
-				plant.play_despawn_animation()
-				yield(get_tree().create_timer(0.2), "timeout")
-			
-			plant.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * (conductor.seconds_per_beat) * GROUND_SPEED)
-			plant.play_spawn_animation()
+	spawn_radishes()
+#	for i in range(len(conductor.hit_pattern)):
+#		if conductor.hit_pattern[i] == "1":
+#			var plant = plant_container.get_node("Beat " + str(i))
+#
+#			if not plant.already_invisible:
+#				plant.play_despawn_animation()
+#				yield(get_tree().create_timer(0.2), "timeout")
+#
+#			plant.position.x = radish_start_pos.position.x - ((i + (tutorial_loops_passed * len(conductor.tutorial_pattern)))  * (conductor.seconds_per_beat) * GROUND_SPEED)
+#			plant.play_spawn_animation()
 
 var tutorial_hit_sucesses = 0
 onready var tutorial_progress_label = get_node("%TutorialProgressLabel")

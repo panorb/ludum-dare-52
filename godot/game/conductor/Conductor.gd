@@ -44,6 +44,12 @@ func start_music():
 	if not tutorial_mode:
 		music_player.play()
 
+func start_main_song():
+	tutorial_mode = false
+	hit_pattern = song_pattern
+	beats_input_received = []
+	music_player.play()
+
 var last_beat_pos := -1
 var current_beat_zone : int = BEAT_HIT_ZONE.MISS
 var closest_beat_position := 0
@@ -76,6 +82,8 @@ func _physics_process(delta):
 	
 	var beat_position = int(track_position_seconds / seconds_per_beat)
 	closest_beat_position = round(track_position_seconds / seconds_per_beat)
+	if closest_beat_position >= len(hit_pattern):
+		closest_beat_position = 0
 	
 	var is_hit_beat : bool = hit_pattern[closest_beat_position] == "1"
 	
