@@ -19,7 +19,7 @@ func _on_MainMenu_start_button_pressed():
 func _on_Stage_game_overed(hit_successes, total_hit_beats):
 	switch_scene(game_over_scene)
 	
-	var percentage = round((hit_successes / total_hit_beats) * 100)
+	var percentage = round((float(hit_successes) / float(total_hit_beats)) * 100.0)
 	next_scene.set_hit_percentage(percentage)
 	
 	if percentage >= 97:
