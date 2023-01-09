@@ -7,8 +7,8 @@ var seconds_per_beat : float = 60.0 / bpm
 
 export(float, 0, 5) var time_until_first_beat := 0
 
-export(float, 0, 1) var seconds_tolerance_hit : float = 0.14
-export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.08
+export(float, 0, 1) var seconds_tolerance_hit : float = 0.18
+export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.09
 
 var tutorial_pattern : String = "0000001000100010"
 var song_pattern : String = "00000010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
