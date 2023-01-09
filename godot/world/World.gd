@@ -13,7 +13,7 @@ func _ready() -> void:
 	switch_scene(main_menu_scene)
 
 func _on_MainMenu_start_button_pressed():
-	switch_scene(beat_indicator_scene)
+	switch_scene(stage_scene)
 
 func switch_scene(new_scene : PackedScene) -> void:
 	next_scene = new_scene.instance()

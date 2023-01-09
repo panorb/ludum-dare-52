@@ -10,7 +10,7 @@ export(float, 0, 5) var time_until_first_beat := 0
 export(float, 0, 1) var seconds_tolerance_hit : float = 0.14
 export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.08
 
-var hit_pattern : String = "0010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
+var hit_pattern : String = "00000010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
 
 enum BEAT_HIT_ZONE {
 	MISS
@@ -55,7 +55,7 @@ func _physics_process(delta):
 	var beat_position = int(track_position_seconds / seconds_per_beat)
 	
 	closest_beat_position = round(track_position_seconds / seconds_per_beat)
-	if closest_beat_position > len(hit_pattern) or hit_pattern[closest_beat_position] == "0":
+	if closest_beat_position >= len(hit_pattern) or hit_pattern[closest_beat_position] == "0":
 		return
 	
 	var closest_beat_seconds = (closest_beat_position * seconds_per_beat)
