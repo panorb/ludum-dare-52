@@ -1,6 +1,6 @@
 extends Node2D
 
-const GROUND_SPEED := 600
+const GROUND_SPEED := 700
 var current_speed : int
 
 # onready var ground_anchor = get_node("GroundAnchor")
@@ -113,6 +113,8 @@ func _on_hit_result(hit_result):
 		if plant_container.has_node("Beat " + str(conductor.closest_beat_position)):
 			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
 			beat_plant.play_hit_miss_animation()
+			
+			farmer_animation_player.play("miss")
 
 func _process(delta):
 	#if ground_anchor.position.x > 3840:
