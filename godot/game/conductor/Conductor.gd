@@ -104,7 +104,7 @@ func _physics_process(delta):
 	if abs(seconds_to_closest_beat) < seconds_tolerance_hit:
 		if current_beat_zone != BEAT_HIT_ZONE.HIT:
 			current_beat_zone = BEAT_HIT_ZONE.HIT
-			print("hit")
+			
 			tutorial_hit_sound_player.stop()
 			tutorial_metronome_sound_player.stop()
 			
@@ -132,7 +132,5 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("beat_hit") and not closest_beat_position in beats_input_received:
-		print(current_beat_zone)
-		
 		beats_input_received.append(closest_beat_position)
 		emit_signal("hit_result", current_beat_zone)

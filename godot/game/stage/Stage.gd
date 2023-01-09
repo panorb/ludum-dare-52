@@ -14,7 +14,7 @@ onready var farmer_animation_player = get_node("%FarmerAnimationPlayer")
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
 onready var tween : Tween = get_node("Tween")
 
-signal game_overed
+signal game_overed(song_hit_successes, total_hit_beats)
 
 var total_hit_beats = 0
 
@@ -92,7 +92,7 @@ func _on_tutorial_pattern_passed():
 #			plant.play_spawn_animation()
 
 func _on_main_song_passed():
-	emit_signal("game_overed")
+	emit_signal("game_overed", song_hit_successes, total_hit_beats)
 
 var song_hit_successes = 0
 var tutorial_hit_sucesses = 0

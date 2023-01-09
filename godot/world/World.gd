@@ -16,8 +16,18 @@ func _ready() -> void:
 func _on_MainMenu_start_button_pressed():
 	switch_scene(stage_scene)
 
-func _on_Stage_game_overed():
+func _on_Stage_game_overed(hit_successes, total_hit_beats):
 	switch_scene(game_over_scene)
+	
+	var percentage = round((hit_successes / total_hit_beats) * 100)
+	next_scene.set_hit_percentage(percentage)
+	
+	if percentage >= 97:
+		next_scene.set_game_over_text("Perfect! Now off for a drink.")
+	elif percentage >= 45:
+		next_scene.set_game_over_text("All in a good day's work!")
+	else:
+		next_scene.set_game_over_text("A nice walk, but a little unproductive.")
 
 func switch_scene(new_scene : PackedScene) -> void:
 	next_scene = new_scene.instance()
