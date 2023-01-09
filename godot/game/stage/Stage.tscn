@@ -200,12 +200,13 @@ anims/running = SubResource( 7 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="TutorialUI" type="VBoxContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="PaletteLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="PaletteLabel" type="Label" parent="CanvasLayer/TutorialUI"]
 margin_top = 903.0
 margin_right = 3840.0
 margin_bottom = 1046.0
@@ -215,7 +216,7 @@ text = "Press [Space] on-beat to harvest the crops."
 align = 1
 script = ExtResource( 8 )
 
-[node name="TutorialProgressLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+[node name="TutorialProgressLabel" type="Label" parent="CanvasLayer/TutorialUI"]
 unique_name_in_owner = true
 margin_top = 1050.0
 margin_right = 3840.0
@@ -226,3 +227,5 @@ text = "0/3"
 align = 1
 script = ExtResource( 8 )
 colour = 1
+
+[node name="Tween" type="Tween" parent="."]

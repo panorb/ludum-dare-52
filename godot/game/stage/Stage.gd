@@ -10,13 +10,14 @@ onready var ground_container = get_node("%GroundContainer")
 onready var background_parallax: ParallaxBackground = $"%BackgroundParallax"
 
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
+onready var tween : Tween = get_node("Tween")
 
 func _ready():
 	conductor.connect("hit_result", self, "_on_hit_result")
 	conductor.connect("tutorial_pattern_passed", self, "_on_tutorial_pattern_passed")
 	spawn_radishes()
 
-func spawn_radishes():
+func spawn_radishes() -> void:
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	
 	for i in range(len(conductor.hit_pattern)):
@@ -30,6 +31,12 @@ func spawn_radishes():
 var tutorial_loops_passed = 0
 
 func _on_tutorial_pattern_passed():
+	if tutorial_hit_sucesses >= 3:
+		tween.interpolate_property(get_node("%TutorialUI"), "modulate", Color(1.0, 1.0, 1.0, 1.0), Color(1.0, 1.0, 1.0, 0.0), 0.8, Tween.TRANS_CIRC)
+		tween.start()
+		conductor.tutorial_mode = false
+		return
+	
 	var radish_start_pos : Position2D = plant_container.get_node("StartPosition")
 	tutorial_hit_sucesses = 0
 	tutorial_loops_passed += 1
