@@ -9,6 +9,7 @@ onready var conductor = get_node("Conductor")
 onready var moving_anchor = get_node("%MovingAnchor")
 onready var ground_container = get_node("%GroundContainer")
 onready var background_parallax: ParallaxBackground = $"%BackgroundParallax"
+onready var background_parallax2: ParallaxBackground = $"%BackgroundParallax2"
 onready var farmer_animation_player = get_node("%FarmerAnimationPlayer")
 
 onready var radish_scene : PackedScene = preload("res://game/stage/Radish.tscn")
@@ -130,7 +131,8 @@ func _process(delta):
 	#	ground_anchor.position.x = 0
 	moving_anchor.position.x += current_speed * delta
 	ground_container.scroll_offset.x += current_speed * delta
-	background_parallax.scroll_offset.x += current_speed * delta / 3
+	background_parallax.scroll_offset.x += current_speed * delta / 6
+	background_parallax2.scroll_offset.x += current_speed * delta / 3
 	# print(ground_container.position.x)
 
 
