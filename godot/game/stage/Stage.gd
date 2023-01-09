@@ -31,6 +31,10 @@ func _on_hit_result(hit_result):
 		if plant_container.has_node("Beat " + str(conductor.closest_beat_position)):
 			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
 			beat_plant.play_hit_success_animation()
+	if hit_result == conductor.BEAT_HIT_ZONE.TOO_EARLY or hit_result == conductor.BEAT_HIT_ZONE.TOO_LATE:
+		if plant_container.has_node("Beat " + str(conductor.closest_beat_position)):
+			var beat_plant = plant_container.get_node("Beat " + str(conductor.closest_beat_position))
+			beat_plant.play_hit_miss_animation()
 
 func _process(delta):
 	#if ground_anchor.position.x > 3840:
