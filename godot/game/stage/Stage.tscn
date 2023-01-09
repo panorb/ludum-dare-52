@@ -104,7 +104,6 @@ __meta__ = {
 [node name="Sun" type="AnimatedSprite" parent="."]
 position = Vector2( 3457, 348 )
 frames = SubResource( 4 )
-frame = 2
 playing = true
 
 [node name="MovingAnchor" type="Node2D" parent="."]

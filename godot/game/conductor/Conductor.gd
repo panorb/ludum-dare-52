@@ -10,8 +10,17 @@ export(float, 0, 5) var time_until_first_beat := 0
 export(float, 0, 1) var seconds_tolerance_hit : float = 0.14
 export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.08
 
-var hit_pattern : String = "00000010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
+var tutorial_pattern : String = "0000001000100010"
+var song_pattern : String = "00000010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
+var hit_pattern : String = tutorial_pattern 
+
 var beats_input_received = []
+
+var tutorial_mode := true
+
+onready var tutorial_metronome_sound_player = get_node("TutorialMetronomeSoundPlayer")
+onready var tutorial_hit_sound_player = get_node("TutorialHitSoundPlayer")
+
 
 enum BEAT_HIT_ZONE {
 	MISS
@@ -31,10 +40,9 @@ func get_beat_hit_zone_string(hit_zone):
 		3:
 			return "TOO_LATE"
 
-func _ready():
-	music_player.play()
-	print("hit: " + str(seconds_tolerance_hit))
-	print("close: " + str(seconds_tolerance_close))
+func start_music():
+	if not tutorial_mode:
+		music_player.play()
 
 var last_beat_pos := -1
 var current_beat_zone : int = BEAT_HIT_ZONE.MISS
@@ -46,18 +54,30 @@ signal enter_beat_close_zone
 signal exit_beat_close_zone
 
 signal hit_result(hit_zone)
+signal tutorial_pattern_passed
+
+var passed_seconds_since_start : float = 0
+var passed_seconds : float = 0
 
 func _physics_process(delta):
-	var track_position_seconds = music_player.get_playback_position()
-	track_position_seconds += AudioServer.get_time_since_last_mix()
-	track_position_seconds -= AudioServer.get_output_latency()
-	track_position_seconds -= time_until_first_beat
+	passed_seconds_since_start += delta
+	passed_seconds += delta
+	if tutorial_mode and passed_seconds >= (len(hit_pattern) - 1) * seconds_per_beat:
+		passed_seconds -= len(hit_pattern) * seconds_per_beat
+		beats_input_received = []
+		emit_signal("tutorial_pattern_passed")
+	
+	var track_position_seconds := passed_seconds
+	if not tutorial_mode:
+		track_position_seconds = music_player.get_playback_position()
+		track_position_seconds += AudioServer.get_time_since_last_mix()
+		track_position_seconds -= AudioServer.get_output_latency()
+		track_position_seconds -= time_until_first_beat
 	
 	var beat_position = int(track_position_seconds / seconds_per_beat)
-	
 	closest_beat_position = round(track_position_seconds / seconds_per_beat)
-	if closest_beat_position >= len(hit_pattern) or hit_pattern[closest_beat_position] == "0":
-		return
+	
+	var is_hit_beat : bool = hit_pattern[closest_beat_position] == "1"
 	
 	var closest_beat_seconds = (closest_beat_position * seconds_per_beat)
 	
@@ -66,6 +86,16 @@ func _physics_process(delta):
 	if abs(seconds_to_closest_beat) < seconds_tolerance_hit:
 		if current_beat_zone != BEAT_HIT_ZONE.HIT:
 			current_beat_zone = BEAT_HIT_ZONE.HIT
+			print("hit")
+			tutorial_hit_sound_player.stop()
+			tutorial_metronome_sound_player.stop()
+			
+			if tutorial_mode and passed_seconds_since_start > 0.5:
+				if is_hit_beat:
+					tutorial_hit_sound_player.play()
+				else:
+					tutorial_metronome_sound_player.play()
+			
 			emit_signal("enter_beat_hit_zone")
 	elif abs(seconds_to_closest_beat) < seconds_tolerance_close:
 		if seconds_to_closest_beat < 0 and current_beat_zone != BEAT_HIT_ZONE.TOO_LATE:
@@ -85,5 +115,6 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("beat_hit") and not closest_beat_position in beats_input_received:
 		print(current_beat_zone)
+		
 		beats_input_received.append(closest_beat_position)
 		emit_signal("hit_result", current_beat_zone)
