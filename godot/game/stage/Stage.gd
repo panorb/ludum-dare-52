@@ -102,7 +102,7 @@ func _on_hit_result(hit_result):
 			if conductor.tutorial_mode:
 				tutorial_progress_label.text = str(tutorial_hit_sucesses) + "/3"
 			
-			
+			farmer_animation_player.play("pull")
 			
 			# Hit Pause
 #			current_speed = 0
