@@ -11,6 +11,7 @@ export(float, 0, 1) var seconds_tolerance_hit : float = 0.14
 export(float, 0, 1) var seconds_tolerance_close : float = seconds_tolerance_hit + 0.08
 
 var hit_pattern : String = "00000010001000100010001000100010001000110010001100110011001000110011001000100010001000100010001000100011001000110011001100100011001100110010001100110011001000110011"
+var beats_input_received = []
 
 enum BEAT_HIT_ZONE {
 	MISS
@@ -82,6 +83,7 @@ func _physics_process(delta):
 		last_beat_pos = beat_position
 
 func _input(event):
-	if event.is_action_pressed("beat_hit"):
+	if event.is_action_pressed("beat_hit") and not closest_beat_position in beats_input_received:
 		print(current_beat_zone)
+		beats_input_received.append(closest_beat_position)
 		emit_signal("hit_result", current_beat_zone)
